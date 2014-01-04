@@ -48,6 +48,11 @@ describe StringCalculator do
       numbers = '//[***]\n1***2***3'
       expect(StringCalculator.add(numbers)).to eq 6
     end
+
+    it 'delimeters can be any length with a given format' do
+      numbers = '//[*][%]\n1*2%3'
+      expect(StringCalculator.add(numbers)).to eq 6
+    end
   end
 
 
