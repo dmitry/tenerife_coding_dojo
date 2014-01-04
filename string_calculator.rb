@@ -1,5 +1,5 @@
 class StringCalculator
-  REGEXP_SPLITTER = /[;,\n]/
+  REGEXP_SPLITTER = /[,\n]/
 
   def self.add(numbers)
     length = numbers.length

@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'rspec'
-require './string_calculator.rb'
+require './string_calculator_functional.rb'
 
 describe StringCalculator do
 
@@ -30,6 +30,7 @@ describe StringCalculator do
 
     it 'takes delimiter on the first line and then uses it to split and sum the numbers' do
       expect(StringCalculator.add("//;\n1;2")).to eq 3
+      expect(StringCalculator.add("//:\n1;2")).to eq 3
     end
 
     it 'takes negative number and raise an exception' do
@@ -37,7 +38,7 @@ describe StringCalculator do
     end
 
     it 'takes multiple negative numbers and raise an exception with the negative numbers' do
-      expect { StringCalculator.add('-5,5,-3,1,4') }.to raise_error('Error: -5,-3')
+      expect { StringCalculator.add('-5,5,-3,1,4') }.to raise_error('negative numbers: -5,-3')
     end
 
     it 'ignores numbers greater than 1000' do
@@ -49,7 +50,7 @@ describe StringCalculator do
       expect(StringCalculator.add(numbers)).to eq 6
     end
 
-    it 'delimeters can be any length with a given format' do
+    it 'can be many delimeters' do
       numbers = '//[*][%]\n1*2%3'
       expect(StringCalculator.add(numbers)).to eq 6
     end
