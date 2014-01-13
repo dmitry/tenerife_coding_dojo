@@ -19,10 +19,10 @@ class StringCalculatorFunctional
   end
 
   def self.cleanup_from_prefix_delimiter(string)
-    remove_from_delimiter(match_prefix_delimiter(string), string)
+    remove_prefix_delimiter(match_prefix_delimiter(string), string)
   end
 
-  def self.remove_from_delimiter(match, string)
+  def self.remove_prefix_delimiter(match, string)
     if match
       string.gsub(match[0], '')
     else
@@ -54,14 +54,18 @@ class StringCalculatorFunctional
   end
 
   def self.match_prefix_delimiter(string)
-    string.match(%r{//\[?([^\]\n]+)\]?\n})
+    string.match(%r{//\[?([^\n]+?)\]?\n})
   end
 
   def self.process_matches(matches)
     if matches
-      matches[1]
+      regexp_with_multiple_delimiters(matches[1].split(']['))
     else
       DEFAULT_SPLITTER
     end
+  end
+
+  def self.regexp_with_multiple_delimiters(delimiters)
+    Regexp.new(delimiters.map { |v| Regexp.escape(v) }.join('|'))
   end
 end

@@ -60,3 +60,10 @@ require './string_calculator_functional.rb'
     end
   end
 end
+
+# test additional methods in functional calculator
+describe StringCalculatorFunctional do
+  it 'creates regexp with multiple delimiters' do
+    expect(StringCalculatorFunctional.regexp_with_multiple_delimiters(%w(, ***))).to eq /,|\*\*\*/
+  end
+end
