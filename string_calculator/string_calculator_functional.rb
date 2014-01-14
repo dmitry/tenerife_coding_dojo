@@ -1,5 +1,9 @@
 class StringCalculatorFunctional
   DEFAULT_SPLITTER = /[;,\n]/
+  PREFIX_DELIMITER_PATTERN = %r{//\[?([^\n]+?)\]?\n}
+  DELIMITER_SPLITTER = ']['
+  EMPTY_STRING = ''
+  COMMA_STRING = ','
 
   def self.add(string)
     return 0 if empty?(string)
@@ -24,7 +28,7 @@ class StringCalculatorFunctional
 
   def self.remove_prefix_delimiter(match, string)
     if match
-      string.gsub(match[0], '')
+      string.gsub(match[0], EMPTY_STRING)
     else
       string
     end
@@ -45,7 +49,7 @@ class StringCalculatorFunctional
 
   def self.raise_negative_numbers_error(numbers)
     unless numbers.empty?
-      raise "Negative numbers: #{numbers.join(',')}"
+      raise "Negative numbers: #{numbers.join(COMMA_STRING)}"
     end
   end
 
@@ -54,12 +58,12 @@ class StringCalculatorFunctional
   end
 
   def self.match_prefix_delimiter(string)
-    string.match(%r{//\[?([^\n]+?)\]?\n})
+    string.match(PREFIX_DELIMITER_PATTERN)
   end
 
   def self.process_matches(matches)
     if matches
-      regexp_with_multiple_delimiters(matches[1].split(']['))
+      regexp_with_multiple_delimiters(matches[1].split(DELIMITER_SPLITTER))
     else
       DEFAULT_SPLITTER
     end
